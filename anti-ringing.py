@@ -9,11 +9,11 @@ def anti_ringing(lr_input, hr_input):
 
     for j in range(shape[0]):
         for i in range(shape[1]):
-            j_lr = np.minimum(shape[0] / 2, np.maximum((j / 2) - 1, 0))
-            i_lr = np.minimum(shape[1] / 2, np.maximum((i / 2) - 1, 0))
+            j_lr = np.minimum(shape[0] / 2, np.maximum(np.floor(j / 2) - 1, 0))
+            i_lr = np.minimum(shape[1] / 2, np.maximum(np.floor(i / 2) - 1, 0))
             for k in range(shape[2]):
-                local_min = np.amin(lr_input[j_lr : j_lr + 3, i_lr : i_lr + 3, k])
-                local_max = np.amax(lr_input[j_lr : j_lr + 3, i_lr : i_lr + 3, k])
+                local_min = np.amin(lr_input[j_lr : j_lr + 4, i_lr : i_lr + 4, k])
+                local_max = np.amax(lr_input[j_lr : j_lr + 4, i_lr : i_lr + 4, k])
                 output[j, i, k] = np.minimum(local_max, np.maximum(hr_input[j, i, k], local_min))
 
     return output
